@@ -25,7 +25,7 @@ public class Server implements Runnable
 	private static final HttpTransport	HTTP_TRANSPORT		= new NetHttpTransport();
 	private static final GsonFactory	GSON_FACTORY		= new GsonFactory();
 	private Thread 						thread;
-	public static final Database		connection			= new Database("127.0.0.1", "youtubedata", "ziqushru", "Ena1dio2tria3");
+	public static final Database		connection			= new Database("databases.000webhost.com:3306", "id1644984_youtubedata", "id1644984_ziqushru", "Ena1dio2tria3");
 	
 	public Server()
 	{
@@ -64,7 +64,7 @@ public class Server implements Runnable
 		final ChannelData[] channel_data = new ChannelData[channel_ids.length];
 		for (int i = 0; i < channel_data.length; i++)
 		{
-			channel_data[i] = new ChannelData(this, channel_ids[i]);
+			channel_data[i] = new ChannelData(channel_ids[i]);
 			channel_data[i].getData();
 		}
 	}

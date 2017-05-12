@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.digitalminds.program.Program;
 import com.digitalminds.program.database.Database;
 import com.digitalminds.program.database.Video;
 import com.google.api.services.youtube.YouTube;
@@ -15,13 +16,11 @@ import com.google.api.services.youtube.model.PlaylistItemListResponse;
 
 public class ChannelData implements Runnable
 {
-	private Server			server;
 	private final String	id;
 	private final Thread	thread;
 	
-	public ChannelData(Server server, String id)
+	public ChannelData(String id)
 	{
-		this.server = server;
 		this.id = id;
 		this.thread = new Thread(this, "Server Thread - Channel ID: " + this.id);
 	}
@@ -36,7 +35,7 @@ public class ChannelData implements Runnable
 	{
 		try
 		{			
-			ChannelListResponse channel_list_response = server.youtube.channels().
+			ChannelListResponse channel_list_response = Program.server.youtube.channels().
 					list("statistics, contentDetails").
 					setId(this.id).
 					setFields("items(contentDetails/relatedPlaylists/uploads, statistics/subscriberCount),nextPageToken,pageInfo").
@@ -49,7 +48,7 @@ public class ChannelData implements Runnable
 				
 				List<PlaylistItem> playlist_items = new ArrayList<PlaylistItem>();
 				
-				YouTube.PlaylistItems.List playlist_item_request = server.youtube.playlistItems().
+				YouTube.PlaylistItems.List playlist_item_request = Program.server.youtube.playlistItems().
 						list("snippet,contentDetails").
 						setPlaylistId(upload_playlist_id);
 				
@@ -71,7 +70,7 @@ public class ChannelData implements Runnable
 					long published_at = playlist_item.getContentDetails().getVideoPublishedAt().getValue();
 					long time_delta = today - published_at;
 					time_delta = time_delta / 1000 / 60 / 60 / 24;
-					com.google.api.services.youtube.model.Video youtube_video = server.youtube.videos().
+					com.google.api.services.youtube.model.Video youtube_video = Program.server.youtube.videos().
 					list("snippet,statistics").
 					setId(playlist_item.getContentDetails().getVideoId()).
 					execute().
@@ -86,7 +85,7 @@ public class ChannelData implements Runnable
 					{
 						Video video = new Video();
 //						video.setThumbnail(youtube_video.getSnippet().getThumbnails().getMedium());
-//						video.setVideo(youtube_video.getSnippet().getThumbnails().getMedium());
+						video.setVideoURL(youtube_video.getId());
 						video.setTitle(youtube_video.getSnippet().getTitle());
 						video.setDescription(youtube_video.getSnippet().getDescription());
 						video.setLikes(youtube_video.getStatistics().getLikeCount().intValue());

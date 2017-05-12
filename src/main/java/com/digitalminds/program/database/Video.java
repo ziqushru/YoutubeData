@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 public class Video
 {
 	private String		title;
-	private Video		video;
+	private String		video_url;
 	private Image		thumbnail;
 	private String		description;
 	private int			likes;
@@ -16,6 +16,19 @@ public class Video
 	private Timestamp	publish_date;
 	private String		tags;
 
+	public Video() {}
+	
+	public Video(int i)
+	{
+		this.title = "Title" + i;
+		this.video_url = "https://www.youtube.com/embed/1cQh1ccqu8M";
+		this.description = "Description" + i;
+		this.likes = i;
+		this.subscribers = 100 + i;
+		this.average_daily_views = 50 + i;
+		this.tags = "Kappa " + i + ", Lotse " + i;
+	}
+	
 	public String getTitle()
 	{
 		return title;
@@ -26,14 +39,14 @@ public class Video
 		this.title = title;
 	}
 
-	public Video getVideo()
+	public String getVideoURL()
 	{
-		return video;
+		return video_url;
 	}
 
-	public void setVideo(Video video)
+	public void setVideoURL(String video_url)
 	{
-		this.video = video;
+		this.video_url = video_url;
 	}
 
 	public Image getThumbnail()
