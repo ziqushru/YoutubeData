@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
-
 public class Database
 {
 	private static java.sql.Connection	connection;
@@ -22,21 +20,19 @@ public class Database
 		catch (InstantiationException e) { e.printStackTrace();	}
 		catch (IllegalAccessException e) { e.printStackTrace();	}
 		
-//		String connection_url = "jdbc:mysql://" + database_ip + "/" + database_name;
-//		
-//		try
-//		{
-//			connection = DriverManager.getConnection(connection_url, username, password);
-//		}
-//		catch (SQLException e) { e.printStackTrace(); }
+		String connection_url = "jdbc:mysql://" + database_ip + "/" + database_name;
 		
-		MysqlDataSource data_source = new MysqlDataSource();
-		data_source.setUser(username);
-		data_source.setPassword(password);
-		data_source.setServerName("jdbc:mysql://" + database_ip);
-		data_source.setDatabaseName(database_name);
-//		data_source.setPort(3306);
-//		data_source.setPortNumber(3306);
+		try
+		{
+			connection = DriverManager.getConnection(connection_url, username, password);
+		}
+		catch (SQLException e) { e.printStackTrace(); }
+		
+//		MysqlDataSource data_source = new MysqlDataSource();
+//		data_source.setUser(username);
+//		data_source.setPassword(password);
+//		data_source.setServerName("jdbc:mysql://" + database_ip);
+//		data_source.setDatabaseName(database_name);
 //		try
 //		{
 //			Database.connection = data_source.getConnection();
@@ -44,6 +40,20 @@ public class Database
 //		catch (SQLException e) { e.printStackTrace(); }
 	}
 
+	public static void delete()
+	{
+		String delete_query = "DELETE FROM videos";
+		String reset_auto_increment_query = "ALTER TABLE videos AUTO_INCREMENT = 1";
+		if (Database.connection == null) return;
+		try
+		{
+			Database.connection.createStatement().executeUpdate(delete_query);
+			Database.connection.createStatement().executeUpdate(reset_auto_increment_query);
+		}
+		catch (SQLException e) { e.printStackTrace(); }
+		
+	}
+	
 	public static List<Video> selectQuery(String query)
 	{
 		if (query == null || Database.connection == null) return null;
@@ -55,9 +65,9 @@ public class Database
 			while (rs.next())
 			{
 				Video video = new Video();
-				video.setTitle(rs.getString("title"));
+				video.setThumbnailURL(rs.getString("thumbnail_url"));
 				video.setVideoURL(rs.getString("video_url"));
-//				video.setThumbnail(rs.getString("thumbnail"));
+				video.setTitle(rs.getString("title"));
 				video.setDescription(rs.getString("description"));
 				video.setLikes(rs.getInt("likes"));
 				video.setSubscribers(rs.getInt("subscribers"));
@@ -69,22 +79,22 @@ public class Database
 			rs.close();
 			return data;
 		}
-		catch (Exception e) { e.printStackTrace(); return null; }
+		catch (SQLException e) { e.printStackTrace(); return null;}
 	}
 	
 	public static void insertVideo(Video video)
 	{
-		String query = "INSERT INTO videos (thumbnail, video_url, title, description, likes, subscribers, average_daily_views, publish_date, tags) VALUES ("
-				+ video.getThumbnail() + ", "
-				+ video.getVideoURL() + ", '"
+		String query = "INSERT INTO videos (thumbnail_url, video_url, title, description, likes, subscribers, average_daily_views, publish_date, tags) VALUES ('"
+				+ video.getThumbnailURL() + "', '"
+				+ video.getVideoURL() + "', '"
 				+ video.getTitle() + "', '"
 				+ video.getDescription() + "', "
 				+ video.getLikes() + ", "
 				+ video.getSubscribers() + ", "
-				+ video.getAverageDailyViews() + ", "
-				+ video.getPublishDate() + ", '"
+				+ video.getAverageDailyViews() + ", '"
+				+ video.getPublishDate() + "', '"
 				+ video.getTags() + "')";
-		insertQuery(query);
+		Database.insertQuery(query);
 	}
 	
 	public static void insertQuery(String query)
@@ -92,9 +102,9 @@ public class Database
 		if (query == null || Database.connection == null) return;
 		try
 		{
-			Database.connection.createStatement().executeQuery(query);
+			Database.connection.createStatement().executeUpdate(query);
 		}
-		catch (Exception e) { return; }
+		catch (SQLException e) { e.printStackTrace(); }
 	}
 	
 	public static void close()

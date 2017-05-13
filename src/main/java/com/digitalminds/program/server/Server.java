@@ -18,14 +18,13 @@ import com.google.api.services.youtube.YouTube;
 public class Server implements Runnable
 {
 	private static final String			APPLICATION_NAME	= "YoutubeData";
-//	private static final String			KEY					= "AIzaSyBD3PBJ4FfSdAoJugY_vSoCD2p1GL0c2Js";
 	private static final String			REFRESH_TOKEN		= "1/5UDcsjUBaMP8lSQKqc6WIroUJGfQrCjS5W-bLOojl_2YHEyLmbyK44zAWSp0QSi3";
 
 	public YouTube						youtube;
 	private static final HttpTransport	HTTP_TRANSPORT		= new NetHttpTransport();
 	private static final GsonFactory	GSON_FACTORY		= new GsonFactory();
 	private Thread 						thread;
-	public static final Database		connection			= new Database("databases.000webhost.com:3306", "id1644984_youtubedata", "id1644984_ziqushru", "Ena1dio2tria3");
+	public static final Database		connection			= new Database("127.0.0.1:3306", "youtubedata", "root", "root");
 	
 	public Server()
 	{
@@ -55,6 +54,8 @@ public class Server implements Runnable
 	@Override
 	public void run()
 	{
+		Database.delete();
+		
 		String[] channel_ids = { "UCoRh0k2djLqXLnZy1fy0A0w",
 				"UC9M8JOr7Fb_Eek_4HH9MjeA",
 				"UCINQg0BNDHQvndHRw6bsxnA",

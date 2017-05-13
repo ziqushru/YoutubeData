@@ -84,14 +84,14 @@ public class ChannelData implements Runnable
 					if (average_daily_views > 5000)
 					{
 						Video video = new Video();
-//						video.setThumbnail(youtube_video.getSnippet().getThumbnails().getMedium());
+						video.setThumbnailURL(youtube_video.getSnippet().getThumbnails().getMedium().getUrl());
 						video.setVideoURL(youtube_video.getId());
 						video.setTitle(youtube_video.getSnippet().getTitle());
 						video.setDescription(youtube_video.getSnippet().getDescription());
 						video.setLikes(youtube_video.getStatistics().getLikeCount().intValue());
 						video.setSubscribers(channel.getStatistics().getSubscriberCount().intValue());
 						video.setAverageDailyViews(average_daily_views);
-						video.setPublishDate(new Timestamp(youtube_video.getSnippet().getPublishedAt().getValue()));
+						video.setPublishDate(new Timestamp(published_at));
 						video.setTags(youtube_video.getSnippet().getTags().toString());
 						
 						Database.insertVideo(video);

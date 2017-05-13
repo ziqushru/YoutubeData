@@ -1,0 +1,17 @@
+CREATE DATABASE youtubedata;
+
+USE youtubedata;
+
+CREATE TABLE videos (
+	id					INT NOT NULL AUTO_INCREMENT,
+    thumbnail_url		VARCHAR(255) NOT NULL,
+    video_url			VARCHAR(255) NOT NULL,
+    title				VARCHAR(255) NOT NULL,
+    description			TEXT,
+    likes				INT,
+    subscribers			INT,
+    average_daily_views	BIGINT,
+    publish_date		TIMESTAMP NOT NULL,
+    tags				TEXT,
+    PRIMARY KEY (id)
+);

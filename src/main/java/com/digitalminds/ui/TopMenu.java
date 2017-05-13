@@ -11,8 +11,8 @@ public class TopMenu extends MenuBar
 		new ViewMenu(this, "View");
 		new ServerMenu(this, "Server");
 		new HelpMenu(this, "Help");
-		this.setMaxWidth(312);
-		this.setMinWidth(312);
-		this.setPrefWidth(312);
+		this.setMaxWidth(252);
+		this.setMinWidth(252);
+		this.setPrefWidth(252);
 	}
 }

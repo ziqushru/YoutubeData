@@ -9,14 +9,12 @@ import com.digitalminds.program.database.Video;
 import com.digitalminds.ui.modules.Label;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.control.ToolBar;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-public class LeftMenu extends ToolBar
+public class LeftMenu extends AnchorPane
 {
 	private static final List<Label>	list		= new ArrayList<Label>();
 	public static final ScrollPane		scroll_pane	= new ScrollPane();
@@ -25,22 +23,21 @@ public class LeftMenu extends ToolBar
 	public LeftMenu()
 	{
 		super();
-		this.setOrientation(Orientation.VERTICAL);
-		this.getItems().add(new Label("Videos"));
-		LeftMenu.scroll_pane.setPrefSize(250, Program.HEIGHT - 175);
+		this.setId("pane");
+		
+		Label label = new Label("                   Videos");
+		AnchorPane.setTopAnchor(label, 25.0);
+		this.getChildren().add(label);
+
 		LeftMenu.scroll_pane.setId("pane");
-		LeftMenu.scroll_pane.setHbarPolicy(ScrollBarPolicy.NEVER);
-		LeftMenu.scroll_pane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		LeftMenu.v_box.setAlignment(Pos.TOP_CENTER);
-
-		List<Video> videos = new ArrayList<Video>();
-		for (int i = 1; i <= 10; i++)
-			videos.add(new Video(i));
-
-		this.setVideoList(videos);
-
+		LeftMenu.scroll_pane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		LeftMenu.scroll_pane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		scroll_pane.setContent(v_box);
-		this.getItems().add(scroll_pane);
+		AnchorPane.setBottomAnchor(scroll_pane, 5.0);
+		AnchorPane.setLeftAnchor(scroll_pane, 5.0);
+		AnchorPane.setRightAnchor(scroll_pane, 5.0);
+		
+		this.getChildren().add(scroll_pane);
 	}
 
 	private void setVideoList(List<Video> videos)
@@ -54,7 +51,7 @@ public class LeftMenu extends ToolBar
 			for (Video video : videos)
 			{
 				Label label = new Label(video.getTitle());
-				label.setPadding(new Insets(20));
+				label.setPadding(new Insets(10));
 				label.setOnMouseClicked(event -> Program.video_pane.setPane(video));
 				v_box.getChildren().add(label);
 				list.add(label);

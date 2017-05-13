@@ -2,13 +2,11 @@ package com.digitalminds.program.database;
 
 import java.sql.Timestamp;
 
-import javafx.scene.image.Image;
-
 public class Video
 {
 	private String		title;
 	private String		video_url;
-	private Image		thumbnail;
+	private String		thumbnail_url;
 	private String		description;
 	private int			likes;
 	private int			subscribers;
@@ -17,51 +15,40 @@ public class Video
 	private String		tags;
 
 	public Video() {}
-	
-	public Video(int i)
+
+	public String getThumbnailURL()
 	{
-		this.title = "Title" + i;
-		this.video_url = "https://www.youtube.com/embed/1cQh1ccqu8M";
-		this.description = "Description" + i;
-		this.likes = i;
-		this.subscribers = 100 + i;
-		this.average_daily_views = 50 + i;
-		this.tags = "Kappa " + i + ", Lotse " + i;
-	}
-	
-	public String getTitle()
-	{
-		return title;
+		return Video.formater(this.thumbnail_url);
 	}
 
-	public void setTitle(String title)
+	public void setThumbnailURL(String thumbnail_url)
 	{
-		this.title = title;
+		this.thumbnail_url = thumbnail_url;
 	}
-
+	
 	public String getVideoURL()
 	{
-		return video_url;
+		return Video.formater(this.video_url);
 	}
-
+	
 	public void setVideoURL(String video_url)
 	{
 		this.video_url = video_url;
 	}
 
-	public Image getThumbnail()
+	public String getTitle()
 	{
-		return thumbnail;
+		return Video.formater(this.title);
 	}
-
-	public void setThumbnail(Image thumbnail)
+	
+	public void setTitle(String title)
 	{
-		this.thumbnail = thumbnail;
+		this.title = title;
 	}
 
 	public String getDescription()
 	{
-		return description;
+		return Video.formater(this.description);
 	}
 
 	public void setDescription(String description)
@@ -71,7 +58,7 @@ public class Video
 
 	public int getLikes()
 	{
-		return likes;
+		return this.likes;
 	}
 
 	public void setLikes(int likes)
@@ -81,7 +68,7 @@ public class Video
 
 	public int getSubscribers()
 	{
-		return subscribers;
+		return this.subscribers;
 	}
 
 	public void setSubscribers(int subscribers)
@@ -91,7 +78,7 @@ public class Video
 
 	public long getAverageDailyViews()
 	{
-		return average_daily_views;
+		return this.average_daily_views;
 	}
 
 	public void setAverageDailyViews(long average_daily_views)
@@ -101,7 +88,7 @@ public class Video
 
 	public Timestamp getPublishDate()
 	{
-		return publish_date;
+		return this.publish_date;
 	}
 
 	public void setPublishDate(Timestamp publish_date)
@@ -111,11 +98,16 @@ public class Video
 
 	public String getTags()
 	{
-		return tags;
+		return Video.formater(this.tags);
 	}
 
 	public void setTags(String tags)
 	{
 		this.tags = tags;
+	}
+	
+	public static String formater(String string)
+	{
+		return string.replace("'", "''");
 	}
 }
