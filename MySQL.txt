@@ -1,3 +1,8 @@
+username:	root
+password:	root
+port:		3306
+ip:			127.0.0.1
+
 CREATE DATABASE youtubedata;
 
 USE youtubedata;

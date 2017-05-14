@@ -1,4 +1,4 @@
-package com.digitalminds.ui;
+package main.java.com.digitalminds.ui;
 
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;

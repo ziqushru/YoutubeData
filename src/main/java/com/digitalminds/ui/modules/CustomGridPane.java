@@ -1,4 +1,4 @@
-package com.digitalminds.ui.modules;
+package main.java.com.digitalminds.ui.modules;
 
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;

@@ -1,4 +1,4 @@
-package com.digitalminds.program.database;
+package main.java.com.digitalminds.program.database;
 
 import java.sql.Timestamp;
 

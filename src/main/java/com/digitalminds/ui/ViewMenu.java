@@ -1,10 +1,9 @@
-package com.digitalminds.ui;
-
-import com.digitalminds.program.Program;
+package main.java.com.digitalminds.ui;
 
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import main.java.com.digitalminds.program.Program;
 
 public class ViewMenu extends Menu
 {

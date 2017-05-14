@@ -1,4 +1,4 @@
-package com.digitalminds.program.database;
+package main.java.com.digitalminds.program.database;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -27,22 +27,11 @@ public class Database
 			connection = DriverManager.getConnection(connection_url, username, password);
 		}
 		catch (SQLException e) { e.printStackTrace(); }
-		
-//		MysqlDataSource data_source = new MysqlDataSource();
-//		data_source.setUser(username);
-//		data_source.setPassword(password);
-//		data_source.setServerName("jdbc:mysql://" + database_ip);
-//		data_source.setDatabaseName(database_name);
-//		try
-//		{
-//			Database.connection = data_source.getConnection();
-//		}
-//		catch (SQLException e) { e.printStackTrace(); }
 	}
 
-	public static void delete()
+	public static void deleteData(String table)
 	{
-		String delete_query = "DELETE FROM videos";
+		String delete_query = "DELETE FROM " + table;
 		String reset_auto_increment_query = "ALTER TABLE videos AUTO_INCREMENT = 1";
 		if (Database.connection == null) return;
 		try

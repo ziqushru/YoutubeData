@@ -1,18 +1,19 @@
-package com.digitalminds.program.server;
+package main.java.com.digitalminds.program.server;
 
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.digitalminds.program.Program;
-import com.digitalminds.program.database.Database;
-import com.digitalminds.program.database.Video;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Channel;
 import com.google.api.services.youtube.model.ChannelListResponse;
 import com.google.api.services.youtube.model.PlaylistItem;
 import com.google.api.services.youtube.model.PlaylistItemListResponse;
+
+import main.java.com.digitalminds.program.Program;
+import main.java.com.digitalminds.program.database.Database;
+import main.java.com.digitalminds.program.database.Video;
 
 public class ChannelData implements Runnable
 {
@@ -72,6 +73,7 @@ public class ChannelData implements Runnable
 					time_delta = time_delta / 1000 / 60 / 60 / 24;
 					com.google.api.services.youtube.model.Video youtube_video = Program.server.youtube.videos().
 					list("snippet,statistics").
+					setFields("items(id, snippet/thumbnails, snippet/title, snippet/description, snippet/tags, statistics/viewCount, statistics/likeCount)").
 					setId(playlist_item.getContentDetails().getVideoId()).
 					execute().
 					getItems().
