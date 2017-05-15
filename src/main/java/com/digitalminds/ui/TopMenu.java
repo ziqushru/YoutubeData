@@ -7,9 +7,9 @@ public class TopMenu extends MenuBar
 	public TopMenu()
 	{
 		super();
-		new ViewMenu(this, "View");
-		new ServerMenu(this, "Server");
-		new HelpMenu(this, "Help");
+		this.getMenus().add(new ViewMenu("View"));
+		this.getMenus().add(new ServerMenu("Server"));
+		this.getMenus().add(new HelpMenu("Help"));
 		this.setMaxWidth(207);
 		this.setMinWidth(207);
 		this.setPrefWidth(207);

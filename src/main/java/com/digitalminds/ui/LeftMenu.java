@@ -43,27 +43,32 @@ public class LeftMenu extends AnchorPane
 		this.getChildren().add(LeftMenu.scroll_pane);
 	}
 
-	private void setVideoList(List<Video> videos)
+	private static void setVideoList(List<Video> videos)
 	{		
 		if (videos != null)
 		{
-			for (Label label : list)
-				LeftMenu.v_box.getChildren().remove(label);
-			LeftMenu.list.clear();
-
+			LeftMenu.clearList();
+			
 			for (Video video : videos)
 			{
 				Label label = new Label(video.getTitle());
 				label.setPadding(new Insets(10));
-				label.setOnMouseClicked(event -> Program.video_pane.setPane(video));
+				label.setOnMouseClicked(event -> VideoPane.setPane(Program.video_pane, video));
 				LeftMenu.v_box.getChildren().add(label);
 				LeftMenu.list.add(label);
 			}
 		}
 	}
 
-	public void loadVideosList()
+	public static void loadVideosList()
 	{
-		this.setVideoList(Database.selectQuery("SELECT * FROM videos ORDER BY average_daily_views"));
+		LeftMenu.setVideoList(Database.selectQuery("SELECT * FROM videos ORDER BY average_daily_views"));
+	}
+	
+	public static void clearList()
+	{
+		for (Label label : list)
+			LeftMenu.v_box.getChildren().remove(label);
+		LeftMenu.list.clear();
 	}
 }
