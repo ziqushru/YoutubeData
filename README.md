@@ -19,6 +19,7 @@ For the jar/project to run it needs a database.
 It uses :
 * MySQL Server 5.7.18
 * Connector/J 5.1.42
+
 All needed information about the setup is in the MySQL.txt
 
 Directories:
