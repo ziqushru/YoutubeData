@@ -6,7 +6,7 @@ It retrieves data and displays them on a Java FX interface.
 
 To replicate the project in EclipseEE :
 * Create a new Maven Project named YoutubeData using the maven-archetype-quickstart
-* Delete the /src/main/com/App.java and /test/* directory
+* Delete /src/main/com/App.java and /test/*
 * Copy and paste the res, src folders and the pom.xml
 * Right Click project -> Properties -> Java Build Path -> Source -> Select YoutubeData/src/test/java -> Remove
 * Right Click project -> Properties -> Java Build Path -> Source -> Add Folder -> Select YoutubeData/src -> Ok
